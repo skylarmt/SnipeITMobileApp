@@ -1,0 +1,22 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "phonegap-plugin-barcodescanner": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        }
+    }
+}

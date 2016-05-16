@@ -1,0 +1,18 @@
+<img class="img-responsive brandlogo" src="assets/brandlogo.png" alt="Logo" />
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h2>Pay $<span id="tamt">some money</span>?</h2>
+        <br />
+        <button id="confirmPayBtn" class="btn btn-success btn-lg btn-wide" onclick="finishTransaction()" >
+            <i class="fa fa-check" ></i> Send Money
+        </button>
+        <br /><br />
+        <button id="cancelPayBtn" class="btn btn-danger btn-lg btn-wide" onclick="cancelTransaction()" >
+            <i class="fa fa-times" ></i> Cancel
+        </button>
+    </div>
+</div>
+<script>
+    $('#tamt').text((transactionamt * 1.0).toFixed(2));
+</script>

@@ -1,0 +1,1 @@
+{"name":"io.cordova.helloCordova","version":"2.0.0","title":"Hello Cordova","hooks":{"cordova":{"desktop":"cordova.desktop","apparmor":"apparmor.json"}},"framework":"ubuntu-sdk-13.10","maintainer":"Apache Cordova Team <dev@cordova.apache.org>","architecture":"amd64","description":"A sample Apache Cordova application that responds to the deviceready event."}
