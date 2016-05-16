@@ -1,25 +1,123 @@
-<img class="img-responsive brandlogo" src="assets/brandlogo.png" alt="Logo" />
-
 <div class="row">
     <div class="col-lg-12 text-center">
-        <div class="well well-sm">
-            <h2>Balance:</h2>
-            <h2 id="balance">...</h2>
+        <h2>Search for Items:</h2>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button id="scancodebtn" onclick="scancode();" class="btn btn-default"><i class="fa fa-barcode"></i> Scan</button>
+            </span>
+            <input type="text" placeholder="Lookup" class="form-control" id="searchbox"/>
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="searchtypelabel">Assets</span> <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="$('#searchtypelabel').text('Assets');">Assets</a></li>
+                    <li><a href="#" onclick="$('#searchtypelabel').text('Accessories');">Accessories</a></li>
+                    <li><a href="#" onclick="$('#searchtypelabel').text('Consumables');">Consumables</a></li>
+                </ul>
+            </div>
+            <span class="input-group-btn">
+                <button id="searchbtn" onclick="dosearch($('#searchbox').val(), $('#searchtypelabel').text().toLowerCase());" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+            </span>
         </div>
-        <br />
-        <button id="scanCodeBtn" class="btn btn-primary btn-lg btn-wide" onclick="scanCode()" >
-            <i class="fa fa-qrcode" ></i> Pay
-        </button>
-        <br /><br />
-        <button id="sendPeerBtn" class="btn btn-info btn-lg btn-wide" onclick="openscreen('peerpay')" >
-            <i class="fa fa-gift" ></i> Send Gift
-        </button>
-        <br /><br />
-        <button id="addMoneyBtn" class="btn btn-success btn-lg btn-wide" onclick="alert('Not ready yet.')" >
-            <i class="fa fa-money" ></i> Add Money
-        </button>
+        <hr />
+        <div class="list-group" id="searchresults">
+
+        </div>
     </div>
 </div>
 <script>
-    getbalance();
+    // Press the button when Enter pressed in search box.
+    $("#searchbox").keydown(function (event) {
+        if (event.keyCode == 13) {
+            $("#searchbtn").click();
+        }
+    });
+
+    /**
+     * Make a Bootstrap list item.
+     * @param {type} innerhtml HTML content of item
+     * @param {type} badge Content for badge, else false
+     * @param {type} classes Additional CSS classes
+     * @param {type} onclick Javascript onclick
+     * @returns {String} The HTML for the list item.
+     */
+    function mkListItem(innerhtml, badge, classes, onclick) {
+        var cssclass = "list-group-item " + classes;
+        var listitem = "<div class=\"" + cssclass + "\"";
+        if (onclick === false) {
+            listitem += ">";
+        } else {
+            listitem += " onclick=\"" + onclick + "\">";
+        }
+        if (badge) {
+            listitem += "<span class=\"badge\">" + badge + "</span>";
+        }
+        listitem += innerhtml;
+        listitem += "</div>";
+        return listitem;
+    }
+
+    function openitem(id, from) {
+        alert("ID: " + id + ", FROM: " + from);
+    }
+
+    function dosearch(text, from) {
+        $.ajax({
+            type: "GET",
+            url: mkApiUrl("search"),
+            data: {q: text, from: from},
+            cache: false,
+            crossDomain: true,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                if (data.status === 'OK') {
+                    var innerhtml = "";
+                    if (data.results.length == 0) {
+                        $('#searchresults').html(mkListItem('No results found.', false, 'disabled', false));
+                    } else {
+                        for (var i = 0; i < data.results.length; i++) {
+                            if (from != 'assets') {
+                                innerhtml += mkListItem(
+                                        data.results[i].name + "<br />" + data.results[i].order_number,
+                                        "Qty " + data.results[i].qty,
+                                        '',
+                                        "openitem('" + data.results[i].id + "', '" + from + "');"
+                                        );
+                            } else {
+                                innerhtml += mkListItem(
+                                        data.results[i].name + "<br />" + data.results[i].asset_tag,
+                                        false,
+                                        '',
+                                        "openitem('" + data.results[i].id + "', '" + from + "');"
+                                        );
+                            }
+                            $('#searchresults').html(innerhtml);
+                        }
+                    }
+                } else {
+                    $('#searchresults').html(mkListItem('An error occurred: ' + data.message, false, 'disabled', false));
+                }
+            },
+            error: function () {
+                $('#searchresults').html(mkListItem("An error occurred.  Check your connection.", false, 'disabled', false));
+            }
+        });
+    }
+
+    function scancode() {
+        try {
+            cordova.plugins.barcodeScanner.scan(
+                    function (result) {
+                        if (!result.cancelled) {
+                            //alert(result.format + ": " + result.text);
+                            $('#searchbox').val(result.text);
+                            dosearch(result.text);
+                        }
+                    });
+        } catch (ex) {
+            alert(ex.message);
+        }
+    }
 </script>

@@ -19,6 +19,21 @@
 #include <QtCore>
 #include "cplugin.h"
 #include "coreplugins.h"
+#include "plugins/cordova-plugin-dialogs/notification.h"
+#include "plugins/cordova-plugin-file/file.h"
+#include "plugins/cordova-plugin-media/media.h"
+#include "plugins/cordova-plugin-file-transfer/file-transfer.h"
+#include "plugins/cordova-plugin-media-capture/capture.h"
+#include "plugins/cordova-plugin-device-orientation/compass.h"
+#include "plugins/cordova-plugin-device/device.h"
+#include "plugins/cordova-plugin-battery-status/battery.h"
+#include "plugins/cordova-plugin-camera/camera.h"
+#include "plugins/cordova-plugin-contacts/contacts.h"
+#include "plugins/cordova-plugin-device-motion/accelerometer.h"
+#include "plugins/cordova-plugin-geolocation/geolocation.h"
+#include "plugins/cordova-plugin-vibration/vibration.h"
+#include "plugins/cordova-plugin-network-information/network_information.h"
+#include "plugins/cordova-plugin-console/console.h"
 INSERT_HEADER_HERE
 
 #define INIT_PLUGIN(class) \
@@ -29,7 +44,7 @@ extern "C" {
 Q_DECL_EXPORT QList<QSharedPointer<CPlugin>> cordovaGetPluginInstances(Cordova *cordova) {
     QList<QSharedPointer<CPlugin>> res;
 
-    INSERT_PLUGIN_HERE
+    INIT_PLUGIN(Dialogs);INIT_PLUGIN(File);INIT_PLUGIN(Media);INIT_PLUGIN(FileTransfer);INIT_PLUGIN(MediaCapture);INIT_PLUGIN(DeviceOrientation);INIT_PLUGIN(Device);INIT_PLUGIN(BatteryStatus);INIT_PLUGIN(Camera);INIT_PLUGIN(Contacts);INIT_PLUGIN(DeviceMotion);INIT_PLUGIN(Geolocation);INIT_PLUGIN(Vibration);INIT_PLUGIN(NetworkInformation);INIT_PLUGIN(Console);INSERT_PLUGIN_HERE
 
     return res;
 }
