@@ -4,6 +4,7 @@
     <description>
         Helena Industries Big Sky E-Recycling asset/inventory tracking app, integrated with custom SnipeIT database API
     </description>
+    <icon src="www/img/launcher.png"/>
     <author email="admin@netsyms.com" href="https://netsyms.com">
         Netsyms Technologies
     </author>

@@ -1,30 +1,81 @@
-<div class="row">
-    <div class="col-lg-12 text-center">
-        <h2>Search for Items:</h2>
-        <div class="input-group">
-            <span class="input-group-btn">
-                <button id="scancodebtn" onclick="scancode();" class="btn btn-default"><i class="fa fa-barcode"></i> Scan</button>
-            </span>
-            <input type="text" placeholder="Lookup" class="form-control" id="searchbox"/>
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="searchtypelabel">Assets</span> <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="$('#searchtypelabel').text('Assets');">Assets</a></li>
-                    <li><a href="#" onclick="$('#searchtypelabel').text('Accessories');">Accessories</a></li>
-                    <li><a href="#" onclick="$('#searchtypelabel').text('Consumables');">Consumables</a></li>
-                </ul>
+<div id="item-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="item-info-header">Edit</h4>
             </div>
-            <span class="input-group-btn">
-                <button id="searchbtn" onclick="dosearch($('#searchbox').val(), $('#searchtypelabel').text().toLowerCase());" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
-            </span>
-        </div>
-        <hr />
-        <div class="list-group" id="searchresults">
+            <div class="modal-body" id="item-info-body">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-font fa-fw"></i></span>
+                    <input type="text" placeholder="Name" id="item-name" class="form-control"/>
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-map-marker"></i></span>
+                    <select class="form-control" id="item-location">
 
+                    </select>
+                </div>
+                <br class="item-only-asset"/>
+                <div class="input-group item-only-asset">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-tag"></i></span>
+                    <select class="form-control" id="item-status">
+
+                    </select>
+                </div>
+                <br />
+                <div class="input-group item-not-asset">
+                    <span class="input-group-addon"><i class="fa fa-hashtag fa-fw"></i></span>
+                    <input type="number" placeholder="Quantity" id="item-qty" class="form-control"/>
+                </div>
+                <br class="item-not-asset" />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-barcode fa-fw"></i></span>
+                    <input type="text" placeholder="Order Number" id="item-order-number" class="form-control"/>
+                </div>
+                <input type="hidden" value="asset" id="item-from" />
+                <input type="hidden" value="" id="item-id" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default"><i class="fa fa-times"></i> Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveitem();"><i class="fa fa-floppy-o"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button id="scancodebtn" onclick="scancode();" class="btn btn-default"><i class="fa fa-barcode"></i></button>
+                </span>
+                <input type="text" placeholder="Lookup" class="form-control" id="searchbox"/>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="searchtypelabel">Assets</span> <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="$('#searchtypelabel').text('Assets');">Assets</a></li>
+                        <li><a href="#" onclick="$('#searchtypelabel').text('Acc');">Accessories</a></li>
+                        <li><a href="#" onclick="$('#searchtypelabel').text('Con');">Consumables</a></li>
+                    </ul>
+                </div>
+                <span class="input-group-btn">
+                    <button id="searchbtn" onclick="dosearch($('#searchbox').val(), $('#searchtypelabel').text().toLowerCase());" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+            <hr />
+            <div class="list-group" id="searchresults">
+
+            </div>
         </div>
     </div>
 </div>
 <script>
+
+    var modal = $('#item-modal');
+
     // Press the button when Enter pressed in search box.
     $("#searchbox").keydown(function (event) {
         if (event.keyCode == 13) {
@@ -56,8 +107,137 @@
         return listitem;
     }
 
+    function getlocationselector(id, from) {
+        $.ajax({
+            type: "GET",
+            url: mkApiUrl("getlocation"),
+            data: {id: id, from: from},
+            cache: false,
+            crossDomain: true,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                if (data.status === 'OK') {
+                    var innerhtml = ""
+                    for (var i = 0; i < data.list.length; i++) {
+                        innerhtml += "<option value=\"" + data.list[i].id + "\">" + data.list[i].name + "</option>";
+                    }
+                    $('#item-location').html(innerhtml);
+                    // Set the selected index to the actual one
+                    $('#item-location').val(data.location);
+                } else {
+                    alert('An error occurred: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred. Check your connection.');
+            }
+        });
+    }
+    
+    function getstatusselector(id, from) {
+        $.ajax({
+            type: "GET",
+            url: mkApiUrl("getstatus"),
+            data: {id: id, from: from},
+            cache: false,
+            crossDomain: true,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                if (data.status === 'OK') {
+                    var innerhtml = ""
+                    for (var i = 0; i < data.list.length; i++) {
+                        innerhtml += "<option value=\"" + data.list[i].id + "\">" + data.list[i].name + "</option>";
+                    }
+                    $('#item-status').html(innerhtml);
+                    // Set the selected index to the actual one
+                    $('#item-status').val(data.itemstatus);
+                } else {
+                    alert('An error occurred: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred. Check your connection.');
+            }
+        });
+    }
+
+    function saveitem() {
+        $.ajax({
+            type: "POST",
+            url: mkApiUrl("updateitem"),
+            data: {
+                id: $('#item-id').val(),
+                from: $('#item-from').val(),
+                name: $('#item-name').val(),
+                qty: $('#item-qty').val(),
+                location: $('#item-location').val(),
+                status: $('#item-status').val(),
+                order_number: $('#item-order-number').val()
+            },
+            cache: false,
+            crossDomain: true,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                if (data.status === 'OK') {
+                    $('#item-modal').modal('hide');
+                    dosearch($('#searchbox').val(), $('#searchtypelabel').text().toLowerCase());
+                } else {
+                    alert('An error occurred: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred. Check your connection.');
+            }
+        });
+    }
+
     function openitem(id, from) {
-        alert("ID: " + id + ", FROM: " + from);
+        $.ajax({
+            type: "GET",
+            url: mkApiUrl("getitem"),
+            data: {id: id, from: from},
+            cache: false,
+            crossDomain: true,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                if (data.status === 'OK') {
+                    // Load item info into modal and show it
+                    getlocationselector(id, from);
+                    $('#item-id').val(id);
+                    $('#item-from').val(from);
+                    $('#item-info-header').text(data.results.name);
+                    $('#item-name').val(data.results.name);
+                    if (from == 'assets') {
+                        $('.item-not-asset').css('display', 'none');
+                        $('.item-only-asset').css('display', '');
+                        getstatusselector(id, from);
+                    } else {
+                        $('.item-only-asset').css('display', 'none');
+                        $('.item-not-asset').css('display', '');
+                        $('#item-qty').val(data.results.qty);
+                    }
+                    $('#item-order-number').val(data.results.order_number);
+                    $('#item-modal').modal('show');
+                } else {
+                    alert('An error occurred: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred. Check your connection.');
+            }
+        });
     }
 
     function dosearch(text, from) {
@@ -113,7 +293,7 @@
                         if (!result.cancelled) {
                             //alert(result.format + ": " + result.text);
                             $('#searchbox').val(result.text);
-                            dosearch(result.text);
+                            dosearch(result.text, $('#searchtypelabel').text().toLowerCase());
                         }
                     });
         } catch (ex) {

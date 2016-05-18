@@ -9,6 +9,14 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
                             "count": 1
                         },
@@ -21,43 +29,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Capture\"><param name=\"android-package\" value=\"org.apache.cordova.mediacapture.Capture\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Compass\"><param name=\"android-package\" value=\"org.apache.cordova.deviceorientation.CompassListener\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Battery\"><param name=\"android-package\" value=\"org.apache.cordova.batterystatus.BatteryListener\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Accelerometer\"><param name=\"android-package\" value=\"org.apache.cordova.devicemotion.AccelListener\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
                             "count": 1
                         },
                         {
@@ -65,7 +37,15 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -73,17 +53,10 @@
             },
             "AndroidManifest.xml": {
                 "parents": {
-                    "/manifest/application": [],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
-                            "count": 1
-                        }
-                    ],
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 5
+                            "count": 4
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
@@ -102,27 +75,35 @@
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
-                            "count": 2
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
-                            "count": 2
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
-                            "count": 1
-                        },
-                        {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:clearTaskOnLaunch=\"true\" android:configChanges=\"orientation|keyboardHidden|screenSize\" android:exported=\"false\" android:name=\"com.google.zxing.client.android.CaptureActivity\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\" android:windowSoftInputMode=\"stateAlwaysHidden\"><intent-filter><action android:name=\"com.google.zxing.client.android.SCAN\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.encode.EncodeActivity\"><intent-filter><action android:name=\"com.phonegap.plugins.barcodescanner.ENCODE\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.HelpActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.FLASHLIGHT\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
                             "count": 1
                         }
                     ]
@@ -134,6 +115,15 @@
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        },
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         },
@@ -143,48 +133,59 @@
         "cordova-plugin-media": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         },
-        "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
         "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-device-orientation": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-battery-status": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-device-motion": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
-        },
-        "cordova-plugin-vibration": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         },
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         },
-        "cordova-plugin-console": {
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
+        },
+        "phonegap-plugin-barcodescanner": {
             "PACKAGE_NAME": "com.netsyms.SnipeITMobile"
         }
     },
     "dependent_plugins": {},
     "modules": [
+        {
+            "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+            "id": "cordova-plugin-camera.Camera",
+            "clobbers": [
+                "Camera"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+            "id": "cordova-plugin-camera.CameraPopoverOptions",
+            "clobbers": [
+                "CameraPopoverOptions"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-camera/www/Camera.js",
+            "id": "cordova-plugin-camera.camera",
+            "clobbers": [
+                "navigator.camera"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
+            "id": "cordova-plugin-camera.CameraPopoverHandle",
+            "clobbers": [
+                "CameraPopoverHandle"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "clobbers": [
+                "device"
+            ]
+        },
         {
             "file": "plugins/cordova-plugin-dialogs/www/notification.js",
             "id": "cordova-plugin-dialogs.notification",
@@ -365,20 +366,6 @@
             ]
         },
         {
-            "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
-            "id": "cordova-plugin-file-transfer.FileTransferError",
-            "clobbers": [
-                "window.FileTransferError"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
-            "id": "cordova-plugin-file-transfer.FileTransfer",
-            "clobbers": [
-                "window.FileTransfer"
-            ]
-        },
-        {
             "file": "plugins/cordova-plugin-media-capture/www/CaptureAudioOptions.js",
             "id": "cordova-plugin-media-capture.CaptureAudioOptions",
             "clobbers": [
@@ -438,170 +425,6 @@
             "runs": true
         },
         {
-            "file": "plugins/cordova-plugin-device-orientation/www/CompassError.js",
-            "id": "cordova-plugin-device-orientation.CompassError",
-            "clobbers": [
-                "CompassError"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-device-orientation/www/CompassHeading.js",
-            "id": "cordova-plugin-device-orientation.CompassHeading",
-            "clobbers": [
-                "CompassHeading"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-device-orientation/www/compass.js",
-            "id": "cordova-plugin-device-orientation.compass",
-            "clobbers": [
-                "navigator.compass"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-device/www/device.js",
-            "id": "cordova-plugin-device.device",
-            "clobbers": [
-                "device"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-battery-status/www/battery.js",
-            "id": "cordova-plugin-battery-status.battery",
-            "clobbers": [
-                "navigator.battery"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
-            "id": "cordova-plugin-camera.Camera",
-            "clobbers": [
-                "Camera"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
-            "id": "cordova-plugin-camera.CameraPopoverOptions",
-            "clobbers": [
-                "CameraPopoverOptions"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/Camera.js",
-            "id": "cordova-plugin-camera.camera",
-            "clobbers": [
-                "navigator.camera"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
-            "id": "cordova-plugin-camera.CameraPopoverHandle",
-            "clobbers": [
-                "CameraPopoverHandle"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/contacts.js",
-            "id": "cordova-plugin-contacts.contacts",
-            "clobbers": [
-                "navigator.contacts"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/Contact.js",
-            "id": "cordova-plugin-contacts.Contact",
-            "clobbers": [
-                "Contact"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/convertUtils.js",
-            "id": "cordova-plugin-contacts.convertUtils"
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactAddress.js",
-            "id": "cordova-plugin-contacts.ContactAddress",
-            "clobbers": [
-                "ContactAddress"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactError.js",
-            "id": "cordova-plugin-contacts.ContactError",
-            "clobbers": [
-                "ContactError"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactField.js",
-            "id": "cordova-plugin-contacts.ContactField",
-            "clobbers": [
-                "ContactField"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactFindOptions.js",
-            "id": "cordova-plugin-contacts.ContactFindOptions",
-            "clobbers": [
-                "ContactFindOptions"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactName.js",
-            "id": "cordova-plugin-contacts.ContactName",
-            "clobbers": [
-                "ContactName"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactOrganization.js",
-            "id": "cordova-plugin-contacts.ContactOrganization",
-            "clobbers": [
-                "ContactOrganization"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-contacts/www/ContactFieldType.js",
-            "id": "cordova-plugin-contacts.ContactFieldType",
-            "merges": [
-                ""
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-device-motion/www/Acceleration.js",
-            "id": "cordova-plugin-device-motion.Acceleration",
-            "clobbers": [
-                "Acceleration"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-device-motion/www/accelerometer.js",
-            "id": "cordova-plugin-device-motion.accelerometer",
-            "clobbers": [
-                "navigator.accelerometer"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
-            "id": "cordova-plugin-geolocation.geolocation",
-            "clobbers": [
-                "navigator.geolocation"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
-            "id": "cordova-plugin-geolocation.PositionError",
-            "runs": true
-        },
-        {
-            "file": "plugins/cordova-plugin-vibration/www/vibration.js",
-            "id": "cordova-plugin-vibration.notification",
-            "merges": [
-                "navigator.notification",
-                "navigator"
-            ]
-        },
-        {
             "file": "plugins/cordova-plugin-network-information/www/network.js",
             "id": "cordova-plugin-network-information.network",
             "clobbers": [
@@ -615,25 +438,34 @@
             "clobbers": [
                 "Connection"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
+        },
+        {
+            "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+            "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+            "clobbers": [
+                "cordova.plugins.barcodeScanner"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-compat": "1.0.0",
+        "cordova-plugin-camera": "2.2.1-dev",
+        "cordova-plugin-console": "1.0.4-dev",
+        "cordova-plugin-device": "1.1.3-dev",
         "cordova-plugin-dialogs": "1.2.2-dev",
         "cordova-plugin-file": "4.2.0",
         "cordova-plugin-media": "2.3.1-dev",
-        "cordova-plugin-file-transfer": "1.5.2-dev",
         "cordova-plugin-media-capture": "1.3.1-dev",
-        "cordova-plugin-device-orientation": "1.0.4-dev",
-        "cordova-plugin-device": "1.1.3-dev",
-        "cordova-plugin-battery-status": "1.1.3-dev",
-        "cordova-plugin-camera": "2.2.1-dev",
-        "cordova-plugin-contacts": "2.1.1-dev",
-        "cordova-plugin-device-motion": "1.2.2-dev",
-        "cordova-plugin-geolocation": "2.2.1-dev",
-        "cordova-plugin-vibration": "2.1.2-dev",
         "cordova-plugin-network-information": "1.2.2-dev",
-        "cordova-plugin-console": "1.0.4-dev",
-        "cordova-plugin-whitelist": "1.2.2"
+        "cordova-plugin-splashscreen": "3.2.2",
+        "cordova-plugin-whitelist": "1.2.2",
+        "phonegap-plugin-barcodescanner": "5.0.0"
     }
 }

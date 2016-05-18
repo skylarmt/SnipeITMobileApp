@@ -1,4 +1,0 @@
-{
-    "baseurl": "https://apis.noidpay.net/",
-    "urlappend": "?format=json"
-}
