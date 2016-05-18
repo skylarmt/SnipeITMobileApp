@@ -13,16 +13,44 @@
                 <br />
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-fw fa-map-marker"></i></span>
-                    <select class="form-control" id="item-location">
+                    <select class="form-control" id="item-location" placeholder="Location">
 
                     </select>
                 </div>
                 <br class="item-only-asset"/>
                 <div class="input-group item-only-asset">
                     <span class="input-group-addon"><i class="fa fa-fw fa-tag"></i></span>
-                    <select class="form-control" id="item-status">
+                    <select class="form-control" id="item-status" placeholder="Status">
 
                     </select>
+                </div>
+                <br class="item-only-asset"/>
+                <div class="input-group item-only-asset">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-desktop"></i></span>
+                    <input type="text" class="form-control" placeholder="Asset Tag" id="item-asset-tag" />
+                    <span class="input-group-btn">
+                        <button id="scancodebtn" onclick="scancode('#item-asset-tag');" class="btn btn-default"><i class="fa fa-barcode"></i></button>
+                    </span>
+                </div>
+                <br class="item-only-asset"/>
+                <div class="input-group item-only-asset">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-credit-card"></i></span>
+                    <input type="text" class="form-control" placeholder="Serial" id="item-serial" />
+                    <span class="input-group-btn">
+                        <button id="scancodebtn" onclick="scancode('#item-serial');" class="btn btn-default"><i class="fa fa-barcode"></i></button>
+                    </span>
+                </div>
+                <br class="item-only-asset"/>
+                <div class="input-group item-only-asset">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-th"></i></span>
+                    <select class="form-control" id="item-model" placeholder="Model">
+
+                    </select>
+                </div>
+                <br class="item-only-asset"/>
+                <div class="input-group item-only-asset">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-hdd-o"></i></span>
+                    <input type="text" class="form-control" id="item-hdd-secure" placeholder="Hard Drive Secure (Y/N)" />
                 </div>
                 <br />
                 <div class="input-group item-not-asset">
@@ -33,6 +61,9 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-barcode fa-fw"></i></span>
                     <input type="text" placeholder="Order Number" id="item-order-number" class="form-control"/>
+                    <span class="input-group-btn">
+                        <button id="scancodebtn" onclick="scancode('#item-order-number');" class="btn btn-default"><i class="fa fa-barcode"></i></button>
+                    </span>
                 </div>
                 <input type="hidden" value="asset" id="item-from" />
                 <input type="hidden" value="" id="item-id" />
@@ -50,26 +81,38 @@
         <div class="col-lg-12 text-center">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <button id="scancodebtn" onclick="scancode();" class="btn btn-default"><i class="fa fa-barcode"></i></button>
+                    <button id="scancodebtn" onclick="scancode('#searchbox');" class="btn btn-default"><i class="fa fa-barcode"></i></button>
                 </span>
                 <input type="text" placeholder="Lookup" class="form-control" id="searchbox"/>
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="searchtypelabel">Assets</span> <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" onclick="$('#searchtypelabel').text('Assets');">Assets</a></li>
-                        <li><a href="#" onclick="$('#searchtypelabel').text('Acc');">Accessories</a></li>
-                        <li><a href="#" onclick="$('#searchtypelabel').text('Con');">Consumables</a></li>
+                        <li><a href="#" onclick="$('#searchtypelabel').text('Assets');"><i class="fa fa-fw fa-desktop"></i> Assets</a></li>
+                        <li><a href="#" onclick="$('#searchtypelabel').text('Acc');"><i class="fa fa-fw fa-keyboard-o"></i> Accessories</a></li>
+                        <li><a href="#" onclick="$('#searchtypelabel').text('Con');"><i class="fa fa-fw fa-tint"></i> Consumables</a></li>
                     </ul>
                 </div>
                 <span class="input-group-btn">
                     <button id="searchbtn" onclick="dosearch($('#searchbox').val(), $('#searchtypelabel').text().toLowerCase());" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </span>
             </div>
-            <hr />
-            <div class="list-group" id="searchresults">
-
+        </div>
+        <br />
+        <div class="col-xs-4">
+            <div class="dropdown">
+                <button id="additembtn" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="additem('asset');" id="addassetbtn"><i class="fa fa-fw fa-desktop"></i> Asset</a></li>
+                    <li><a href="#" onclick="additem('accessory');" id="addaccessorybtn"><i class="fa fa-fw fa-keyboard-o"></i> Accessory</a></li>
+                    <li><a href="#" onclick="additem('consumable');" id="addconsumablebtn"><i class="fa fa-fw fa-tint"></i> Consumable</a></li>
+                    <li><a href="#" onclick="additem('hdd');" id="addassetbtn"><i class="fa fa-fw fa-hdd-o"></i> Hard Drive</a></li>
+                </ul>
             </div>
         </div>
+    </div>
+    <hr />
+    <div class="list-group" id="searchresults">
+
     </div>
 </div>
 <script>
@@ -107,6 +150,32 @@
         return listitem;
     }
 
+    function additem(from) {
+        $("[id^='item-']").val('');
+        $('#item-from').val(from);
+        $('#item-info-header').text('Create ' + from);
+        if (from == 'asset') {
+            $('.item-not-asset').css('display', 'none');
+            $('.item-only-asset').css('display', '');
+            getstatusselector(0, from);
+            getmodelselector(0);
+        } else if (from == 'hdd') {
+            $('#item-from').val('asset');
+            $('.item-not-asset').css('display', 'none');
+            $('.item-only-asset').css('display', '');
+            getstatusselector(0, from);
+            getmodelselector(0, from);
+            $("#item-model option:not(:contains('Hard Drive'))").remove();
+            $("#item-status option:not(:contains('HDD: '))").remove();
+            $('#item-name').val('Hard Drive');
+        } else {
+            $('.item-only-asset').css('display', 'none');
+            $('.item-not-asset').css('display', '');
+        }
+        getlocationselector(0, from);
+        $('#item-modal').modal('show');
+    }
+
     function getlocationselector(id, from) {
         $.ajax({
             type: "GET",
@@ -120,7 +189,7 @@
             },
             success: function (data) {
                 if (data.status === 'OK') {
-                    var innerhtml = ""
+                    var innerhtml = "<option selected hidden>Location</option>"
                     for (var i = 0; i < data.list.length; i++) {
                         innerhtml += "<option value=\"" + data.list[i].id + "\">" + data.list[i].name + "</option>";
                     }
@@ -136,7 +205,7 @@
             }
         });
     }
-    
+
     function getstatusselector(id, from) {
         $.ajax({
             type: "GET",
@@ -150,13 +219,53 @@
             },
             success: function (data) {
                 if (data.status === 'OK') {
-                    var innerhtml = ""
+                    var innerhtml = "<option selected hidden>Status</option>"
                     for (var i = 0; i < data.list.length; i++) {
+                        if (from == 'hdd' && data.list[i].name.indexOf('HDD') == -1) {
+                            continue;
+                        }
                         innerhtml += "<option value=\"" + data.list[i].id + "\">" + data.list[i].name + "</option>";
                     }
                     $('#item-status').html(innerhtml);
                     // Set the selected index to the actual one
-                    $('#item-status').val(data.itemstatus);
+                    if (data.itemstatus != 0) {
+                        $('#item-status').val(data.itemstatus);
+                    }
+                } else {
+                    alert('An error occurred: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred. Check your connection.');
+            }
+        });
+    }
+
+    function getmodelselector(id, from) {
+        $.ajax({
+            type: "GET",
+            url: mkApiUrl("getmodel"),
+            data: {id: id, from: 'assets'},
+            cache: false,
+            crossDomain: true,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+                if (data.status === 'OK') {
+                    var innerhtml = "<option selected hidden>Model</option>"
+                    for (var i = 0; i < data.list.length; i++) {
+                        if (from == 'hdd' && data.list[i].name != 'Hard Drive') {
+                            continue;
+                        }
+                        innerhtml += "<option value=\"" + data.list[i].id + "\">" + data.list[i].name + "</option>";
+                    }
+                    $('#item-model').html(innerhtml);
+                    // Set the selected index to the actual one
+                    if (data.model != 0) {
+                        $('#item-model').val(data.model);
+                    }
                 } else {
                     alert('An error occurred: ' + data.message);
                 }
@@ -178,6 +287,10 @@
                 qty: $('#item-qty').val(),
                 location: $('#item-location').val(),
                 status: $('#item-status').val(),
+                serial: $('#item-serial').val(),
+                model: $('#item-model').val(),
+                asset_tag: $('#item-asset-tag').val(),
+                hdd_secure: $('#item-hdd-secure').val(),
                 order_number: $('#item-order-number').val()
             },
             cache: false,
@@ -217,12 +330,20 @@
                     getlocationselector(id, from);
                     $('#item-id').val(id);
                     $('#item-from').val(from);
-                    $('#item-info-header').text(data.results.name);
+                    if (data.results.name == '') {
+                        $('#item-info-header').text("Edit " + data.results.asset_tag);
+                    } else {
+                        $('#item-info-header').text("Edit " + data.results.name);
+                    }
                     $('#item-name').val(data.results.name);
                     if (from == 'assets') {
                         $('.item-not-asset').css('display', 'none');
                         $('.item-only-asset').css('display', '');
+                        $('#item-serial').val(data.results.serial);
+                        $('#item-asset-tag').val(data.results.asset_tag);
+                        $('#item-hdd-secure').val(data.results._snipeit_hard_drive_secure__y_n_);
                         getstatusselector(id, from);
+                        getmodelselector(id);
                     } else {
                         $('.item-only-asset').css('display', 'none');
                         $('.item-not-asset').css('display', '');
@@ -286,14 +407,16 @@
         });
     }
 
-    function scancode() {
+    function scancode(target) {
         try {
             cordova.plugins.barcodeScanner.scan(
                     function (result) {
                         if (!result.cancelled) {
                             //alert(result.format + ": " + result.text);
-                            $('#searchbox').val(result.text);
-                            dosearch(result.text, $('#searchtypelabel').text().toLowerCase());
+                            $(target).val(result.text);
+                            if (target == '#searchbox') {
+                                dosearch(result.text, $('#searchtypelabel').text().toLowerCase());
+                            }
                         }
                     });
         } catch (ex) {

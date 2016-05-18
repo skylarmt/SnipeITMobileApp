@@ -8,6 +8,7 @@
  * API base URL
  */
 APIURL = "http://snipe-mobile-api/snipeapi/app/";
+//APIURL = "http://localhost:8000/";
 username = "";
 
 /**
