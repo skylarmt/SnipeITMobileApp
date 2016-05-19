@@ -1,3 +1,6 @@
+#!/bin/sh
+# This script builds the app.  If you want to use it, you'll have to
+# modify it to point to your android keystore and alias.
 cordova build --release android
 cd platforms/android/build/outputs/apk
 cp android-release-unsigned.apk android-release-signed.apk
