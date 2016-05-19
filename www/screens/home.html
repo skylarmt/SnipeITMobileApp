@@ -189,7 +189,7 @@
             },
             success: function (data) {
                 if (data.status === 'OK') {
-                    var innerhtml = "<option selected hidden>Location</option>"
+                    var innerhtml = "<option selected hidden disabled value='0'>Location</option>"
                     for (var i = 0; i < data.list.length; i++) {
                         innerhtml += "<option value=\"" + data.list[i].id + "\">" + data.list[i].name + "</option>";
                     }
@@ -219,7 +219,7 @@
             },
             success: function (data) {
                 if (data.status === 'OK') {
-                    var innerhtml = "<option selected hidden>Status</option>"
+                    var innerhtml = "<option selected hidden disabled value='0'>Status</option>"
                     for (var i = 0; i < data.list.length; i++) {
                         if (from == 'hdd' && data.list[i].name.indexOf('HDD') == -1) {
                             continue;
@@ -254,7 +254,7 @@
             },
             success: function (data) {
                 if (data.status === 'OK') {
-                    var innerhtml = "<option selected hidden>Model</option>"
+                    var innerhtml = "<option selected hidden disabled value='0'>Model</option>"
                     for (var i = 0; i < data.list.length; i++) {
                         if (from == 'hdd' && data.list[i].name != 'Hard Drive') {
                             continue;

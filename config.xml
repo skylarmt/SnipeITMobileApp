@@ -9,6 +9,7 @@
         Netsyms Technologies
     </author>
     <content src="index.html"/>
+    <preference name="SplashScreen" value="none"/>
     <plugin name="cordova-plugin-whitelist" spec="1"/>
     <access origin="*"/>
     <allow-intent href="http://*/*"/>

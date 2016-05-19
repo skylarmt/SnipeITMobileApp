@@ -44,6 +44,7 @@
         Netsyms Technologies
     </author>
     <content src="index.html" />
+    <preference name="SplashScreen" value="none" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
