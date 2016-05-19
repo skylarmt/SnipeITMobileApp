@@ -9,28 +9,28 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="512"
-   height="512"
-   viewBox="0 0 512.00001 512.00001"
-   id="svg2"
+   width="1024"
+   height="500"
+   viewBox="0 0 1024 500.00001"
+   id="svg4148"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="logo.svg"
-   inkscape:export-filename="/home/skylar/NetBeansProjects/SnipeITMobile/www/img/logo.png"
+   sodipodi:docname="googleplay-banner.svg"
+   inkscape:export-filename="/home/skylar/NetBeansProjects/SnipeITMobile/www/img/googleplay-banner.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs4" />
+     id="defs4150" />
   <sodipodi:namedview
      id="base"
-     pagecolor="#ffffff"
+     pagecolor="#46b8ff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="-49.285714"
-     inkscape:cy="400"
+     inkscape:cx="-55"
+     inkscape:cy="520"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -41,7 +41,7 @@
      inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
-     id="metadata7">
+     id="metadata4153">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -56,9 +56,9 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-540.36216)">
+     transform="translate(0,-552.36216)">
     <g
-       transform="matrix(3.6879875,0,0,4.5507116,89.44864,529.40604)"
+       transform="matrix(1.997633,0,0,2.4649355,700.2629,657.76288)"
        id="g4151">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#53c9ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -104,5 +104,22 @@
            style="fill:none;fill-opacity:1;stroke:#00a6ff;stroke-width:7.14497852;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:99.10398865px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="83.763855"
+       y="767.72534"
+       id="text4729"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4731"
+         x="83.763855"
+         y="767.72534"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu">Snipe-IT</tspan><tspan
+         sodipodi:role="line"
+         x="83.763855"
+         y="891.60535"
+         id="tspan4733"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu">Mobile App</tspan></text>
   </g>
 </svg>

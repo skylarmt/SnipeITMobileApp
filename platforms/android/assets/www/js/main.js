@@ -7,7 +7,8 @@
 /**
  * API base URL
  */
-APIURL = "http://snipe-mobile-api/snipeapi/app/";
+APIURL = "";
+//APIURL = "http://snipe-mobile-api/snipeapi/app/";
 //APIURL = "http://localhost:8000/";
 username = "";
 
@@ -35,7 +36,16 @@ function dologin() {
     if ($('#usernameBox').val() === "") {
         $('#errormsg').text("Error:  Missing username.");
         $('#errorbase').css('display', 'block');
+        $('#loginBtn').html('<i class="fa fa-sign-in"></i> Login');
+        return;
     }
+    if ($('#urlBox').val() === "") {
+        $('#errormsg').text("Error:  Missing API address.");
+        $('#errorbase').css('display', 'block');
+        $('#loginBtn').html('<i class="fa fa-sign-in"></i> Login');
+        return;
+    }
+    APIURL = $('#urlBox').val();
     $.ajax({
         type: "POST",
         url: mkApiUrl("login"),
@@ -50,6 +60,7 @@ function dologin() {
             if (data.status === 'OK') {
                 username = $('#usernameBox').val();
                 localStorage.setItem("username", username);
+                localStorage.setItem("apiurl", APIURL);
                 openscreen("home");
             } else {
                 $('#loginBtn').html('<i class="fa fa-sign-in"></i> Login');
