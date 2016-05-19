@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.netsyms.SnipeITMobile" version="1.0.0">
-    <name>E-Recycle Tracker</name>
+    <name>SnipeIT</name>
     <description>
-        Helena Industries Big Sky E-Recycling asset/inventory tracking app, integrated with custom SnipeIT database API
+        Asset/inventory tracking app, integrated with custom SnipeIT database API
     </description>
     <icon src="www/img/launcher.png"/>
     <author email="admin@netsyms.com" href="https://netsyms.com">
