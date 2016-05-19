@@ -10,6 +10,12 @@
                     <div id="errorbase" class="alert alert-danger alert-dismissable" style="display: none;">
                         <p id="errormsg">An error occurred.</p>
                     </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon-globeicon"><i class="fa fa-globe"></i></span>
+                        <input type="text" placeholder="API Address" id="urlBox" class="form-control" aria-describedby="basic-addon-globeicon" value="" />
+                    </div>
+                    <br />
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon-usericon"><i class="fa fa-user"></i></span>
                         <input type="text" placeholder="Username" id="usernameBox" class="form-control" aria-describedby="basic-addon-usericon"/>
@@ -31,6 +37,11 @@
     if (localStorage.getItem("username") === null) {
     } else {
         $('#usernameBox').val(localStorage.getItem("username"));
+    }
+    
+    if (localStorage.getItem("apiurl") === null) {
+    } else {
+        $('#urlBox').val(localStorage.getItem("apiurl"));
     }
 
     $("#usernameBox").keydown(function (event) {
